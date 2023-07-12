@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,7 +17,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Date;
 import java.util.Optional;
 
 import com.cst438.controllers.GradeBookController;
@@ -73,6 +79,9 @@ public class JunitTestGradebook {
 
 	@Autowired
 	private MockMvc mvc;
+	
+	@Autowired
+   private MockMvc mockMvc;
 
 	@Test
 	public void gradeAssignment() throws Exception {
@@ -259,5 +268,11 @@ public class JunitTestGradebook {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 */
+	
 }
