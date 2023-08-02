@@ -44,7 +44,7 @@ public class EndToEndTestCreateAssignment {
 
     @Test
     public void testAddAssignment() throws Exception {
-       // Database setup: create courses
+       // Database setup: create course
        Course course = new Course();
        course.setCourse_id(TEST_COURSE_ID);
        course.setInstructor(TEST_INSTRUCTOR_EMAIL);
