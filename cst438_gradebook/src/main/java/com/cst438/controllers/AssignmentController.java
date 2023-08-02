@@ -7,8 +7,11 @@ import com.cst438.domain.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.util.Optional;
 
 /* This controller will allow an instructor to add a new assignment
@@ -31,7 +34,7 @@ public class AssignmentController {
     }
 
     // Endpoint to get an assignment by ID
-    @GetMapping("/{id}")
+    @GetMapping("/assignments/{id}")
     public ResponseEntity<Assignment> getAssignmentById(@PathVariable("id") int assignmentId) {
         Optional<Assignment> assignmentOptional = assignmentRepository.findById(assignmentId);
         if (assignmentOptional.isPresent()) {
@@ -42,7 +45,7 @@ public class AssignmentController {
         }
     }
 
-    // Endpoint to create a new assignment
+    /*// Endpoint to create a new assignment
     @PostMapping
     public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
         Optional<Course> courseOptional = courseRepository.findById(assignment.getCourse().getCourse_id());
@@ -53,6 +56,30 @@ public class AssignmentController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }*/
+    
+    //testing
+    @PostMapping("/assignments")
+    @Transactional
+    public void addAssignment(@PathVariable int course_id, @RequestParam String assignment_name,
+          @RequestParam String due_date) {
+       // check that this request is from the course instructor and for a valid course
+       String email = "dwisneski@csumb.edu"; // user name (should be instructor's email)
+       Course c = courseRepository.findById(course_id).orElse(null);
+       if (c == null) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course does not exist. ");
+       }
+       if (!c.getInstructor().equals(email)) {
+          throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not Authorized. ");
+       }
+
+       Assignment assignment = new Assignment();
+       assignment.setCourse(c);
+       assignment.setName(assignment_name);
+       assignment.setNeedsGrading(1);
+       assignment.setDueDate(Date.valueOf(due_date));
+
+       assignmentRepository.save(assignment);
     }
 
     // Endpoint to update the name and due date of an assignment
