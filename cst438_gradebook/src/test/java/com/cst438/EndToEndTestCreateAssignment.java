@@ -32,8 +32,8 @@ public class EndToEndTestCreateAssignment {
     public static final String TEST_INSTRUCTOR_EMAIL = "dwisneski@csumb.edu";
     public static final String TEST_COURSE_TITLE = "Test Course";
     public static final String TEST_ASSIGNMENT_NAME = "Test Assignment";
-    public static final String TEST_ASSIGNMENT_DUE_DATE = "2023-07-24";
-    public static final int TEST_COURSE_ID = 99999;
+    public static final String TEST_ASSIGNMENT_DUE_DATE = "2023-08-01";
+    public static final int TEST_COURSE_ID = 355193;
     public static final int SLEEP_DURATION = 1000; // 1 second.
 
     @Autowired
